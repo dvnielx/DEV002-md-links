@@ -80,10 +80,31 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
+// Function to obtain "unique" and "broken" links
+
+// Esta función recibe un array de objetos que representan los links encontrados en los archivos markdown
+const linksStats = (array) => `${array.length}`;
+
+// Esta función recibe el mismo array de objetos de la función anterior y utiliza un Set para eliminar los links duplicados. Retorna la cantidad de links únicos encontrados.
+const uniqueLinks = (array) => {
+  const unique = new Set(array.map((link) => link.href));
+  return `${unique.size}`;
+};
+
+// Esta función recibe el mismo array de objetos de la función anterior y filtra aquellos links que tienen un status de 'Fail' o que estén fuera del rango de 199 a 400. Retorna la cantidad de links rotos encontrados.
+const brokenLinks = (array) => {
+  const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199);
+  return `${broken.length}`;
+};
+
+
 module.exports = {
   getLinks,
   getFiles,
   readFiles,
+  linksStats,
+  uniqueLinks,
+  brokenLinks,
   isPathValid,
   isExtensionMd,
   getLinkStatus,
