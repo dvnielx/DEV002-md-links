@@ -15,3 +15,4 @@ if (route === undefined) {
    --stats: to get basic statistics of each of the links found (total, unique & broken links).                                 
    --validate --stats: in order to obtain statistics that requiere to be validated.`)
 };
+

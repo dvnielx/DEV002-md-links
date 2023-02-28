@@ -1,8 +1,6 @@
 const fs = require("fs");
 const {
   getLinks,
-  getFiles,
-  readFiles,
   isPathValid,
   isExtensionMd,
   getLinkStatus,
