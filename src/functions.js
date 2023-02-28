@@ -80,7 +80,7 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
-// Function to obtain "unique" and "broken" links
+// Functions to obtain "unique" and "broken" links
 
 // Esta función recibe un array de objetos que representan los links encontrados en los archivos markdown
 const linksStats = (array) => `${array.length}`;
@@ -96,7 +96,6 @@ const brokenLinks = (array) => {
   const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199);
   return `${broken.length}`;
 };
-
 
 module.exports = {
   getLinks,

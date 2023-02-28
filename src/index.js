@@ -25,7 +25,7 @@ const mdLinks = (path, options) => {
     }
     getLinks(isPathAbsolute).then((arrayLinks) => { // Invoca la función getLinks con la ruta absoluta y devuelve una promesa
       if (arrayLinks.length === 0) { // Si el array de links obtenido es de longitud 0, significa que no hay links en el archivo
-        reject(new Error('Path does not have links')); // Rechaza la promesa con un error indicando que no hay links en el archivo
+        reject(new Error('Path does not have links.')); // Rechaza la promesa con un error indicando que no hay links en el archivo
         return; // Sale de la función
       }
       if (options === { validate: false }) { // Si las opciones son { validate: false }, resuelve la promesa con el array de links obtenido
