@@ -12,11 +12,11 @@ const {
 
 const mdLinks = (path, options) => {
   return new Promise((resolve, reject) => {
-    //Identifica si la ruta existe
+    // Identifica si la ruta existe
     if (fs.existsSync(path)) {
     } else {
       reject(new Error ('Path does not exist.'));
-      return
+      return;
     }
     const isPathAbsolute = convertToAbsolute(path);
     if (!isExtensionMd(isPathAbsolute)) {
