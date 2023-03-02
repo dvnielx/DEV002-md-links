@@ -14,7 +14,7 @@ A través de JavaScript, node.js y npm, estructuré el proyecto "md-links", el c
 
 ***
 
-## i. Acerca de MD-Links
+## i. Acerca de md-links
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
@@ -36,7 +36,7 @@ En este proyecto se creó una herramienta de línea de comando (CLI) así como u
 ## iii. ¿Cómo se instala?
 
 En la terminal escribe el siguiente comando: 
-#### npm install <github-user>/md-links
+` npm install <github-user>/md-links `
 
 ## iv. Digrama de flujo
 
@@ -51,7 +51,7 @@ En la terminal escribe el siguiente comando:
 
 ### 1) JavaScript API
 
-El módulo debe poder **importarse** en otros scripts de Node.js y debe ofrecer la
+El módulo puede importarse en otros scripts de Node.js y ofrece la
 siguiente interfaz:
 
 #### `mdLinks(path, options)`
@@ -69,7 +69,7 @@ desde donde se invoca node - _current working directory_).
 
 La función **retorna una promesa** (`Promise`) que **resuelve a un arreglo**
 (`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades
+las siguientes propiedades:
 
 Con `validate:false` :
 
@@ -172,4 +172,5 @@ Total: 3
 Unique: 3
 Broken: 1
 ```
+
 💻 Deploy: 
