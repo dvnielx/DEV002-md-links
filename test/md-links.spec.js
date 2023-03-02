@@ -8,7 +8,7 @@ const {
   getLinkStatus,
   isPathAbsolute,
   convertToAbsolute,
-} = require('../src/functions.js')
+} = require('../src/functions.js');
 
 describe('mdLinks', () => {
 
