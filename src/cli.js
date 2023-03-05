@@ -65,10 +65,12 @@ if (
        Links stats`,
       );
       console.log(
-        `\n${'Total links  :'} ${linksStats(arrayLinks)}`,
+        `\n
+      ${'Total links  :'} ${linksStats(arrayLinks)}`,
       );
       console.log(
-        `\n${'Unique links :'} ${uniqueLinks(arrayLinks)}\n`,
+        `\n
+      ${'Unique links :'} ${uniqueLinks(arrayLinks)}\n`,
       );
     })
     .catch((error) => {

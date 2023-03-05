@@ -14,20 +14,16 @@ const convertToAbsolute = (route) => (isPathAbsolute(route) ? route : path.resol
 // Looks if the extension of the route is .md 
 const isExtensionMd = (route) => path.extname(route) === '.md';
 
-const getFiles = (route, extension) => {
-  // Implementación para obtener los archivos de una extensión en una ruta
-};
-
-// Function to get the links
+// Function to get the links. It returns a promise.
 const getLinks = (route) => new Promise((resolve, reject) => {
   if (!isPathValid(route)) {
-    return reject(new Error('Path is invalid'));
+    return reject(new Error('Path is invalid.'));
   }
 
   if (!isExtensionMd(route)) {
     return reject(new Error('File does not have .md extension'));
   }
-
+  // if the route & extension are valid, an empty array is created. the links found will be saved there.
   const links = []; // it returns an array with the info the user wants to receive
   readFiles(route)
     .then((data) => {
@@ -80,7 +76,7 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
-// Functions to obtain "unique" and "broken" links
+// *Functions to obtain "unique" and "broken" links*
 
 // Esta función recibe un array de objetos que representan los links encontrados en los archivos markdown
 const linksStats = (array) => `${array.length}`;
@@ -99,7 +95,6 @@ const brokenLinks = (array) => {
 
 module.exports = {
   getLinks,
-  getFiles,
   readFiles,
   linksStats,
   uniqueLinks,
