@@ -173,4 +173,4 @@ Unique: 3
 Broken: 1
 ```
 
-💻 Deploy: 
+💻 Deploy: https://www.npmjs.com/package/md-links-dc
