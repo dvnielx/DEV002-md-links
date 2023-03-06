@@ -36,7 +36,7 @@ En este proyecto se creó una herramienta de línea de comando (CLI) así como u
 ## iii. ¿Cómo se instala?
 
 En la terminal escribe el siguiente comando: 
-` npm install <github-user>/md-links `
+` npm i md-links-dc`
 
 ## iv. Digrama de flujo
 
