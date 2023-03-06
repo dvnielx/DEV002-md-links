@@ -36,7 +36,7 @@ En este proyecto se creó una herramienta de línea de comando (CLI) así como u
 ## iii. ¿Cómo se instala?
 
 En la terminal escribe el siguiente comando: 
-` npm install <github-user>/md-links `
+` npm i md-links-dc `
 
 ## iv. Digrama de flujo
 
@@ -44,7 +44,7 @@ En la terminal escribe el siguiente comando:
 
 ## v. Consideraciones generales
 
-* El módulo **se instala** via `npm install <github-user>/md-links`.
+* La librería y el script ejecutable (herramienta de línea de comando - CLI) estan implementados en JavaScript para ser ejecutados con Node.js.
 
 ## vi. Archivos del proyecto
 ### Este proyecto consta de DOS partes
