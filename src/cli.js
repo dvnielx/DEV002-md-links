@@ -4,6 +4,7 @@ const { linksStats, uniqueLinks, brokenLinks } = require('../src/functions.js');
 
 const route = process.argv[2];
 const options = {
+  // process.argv devuelve un array con todos los argumentos que se pasaron al script al momento de ser ejecutado
   validate: process.argv.includes('--validate') || process.argv.includes('--v'),
   stats: process.argv.includes('--stats') || process.argv.includes('--s'),
 };

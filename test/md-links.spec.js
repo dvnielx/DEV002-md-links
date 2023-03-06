@@ -1,7 +1,6 @@
 const { mdLinks } = require('../src/index.js');
+const axios = require('axios');
 const {
-  getLinks,
-  getFiles,
   readFiles,
   isPathValid,
   isExtensionMd,
@@ -12,14 +11,18 @@ const {
 
 describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
+  test('should reject with an error when the path does not exist', () => {
+    const path = 'fake/path.md';
+    return expect(mdLinks(path)).rejects.toThrow('Path does not exist.');
+  });
+  test('should reject with an error when the path does not have a .md extension', () => {
+    const path = 'README.txt';
+    return expect(mdLinks(path)).rejects.toThrow('The provided path does not have a .md extension.');
   });
 
-  it('should reject path if it does not exist', () => {
-    return mdLinks('desktop/lab/doesnotexist.md').catch((error) => {
-      expect(error).toBe("Path does not exist");
-    })
+  test('should reject with an error when the path does not have links', () => {
+    const path = 'test/test_files/test.md';
+    return expect(mdLinks(path)).rejects.toThrow('Path does not have links.');
   });
 });
 
@@ -52,11 +55,91 @@ describe('isPathAbsolute', () => {
 
 describe('convertToAbsolute', () => {
   const path = require('path');
-  it('should return absolute path if input is already absolute', () => {
+
+    it('should return absolute path if input is already absolute', () => {
     expect(convertToAbsolute('/User/Documents/README.md')).toBe('/User/Documents/README.md');
   });
 
-  it('should return absolute path if input is relative path', () => {
+    it('should return absolute path if input is relative path', () => {
     expect(convertToAbsolute('README.md')).toBe(path.resolve('README.md'));
   });
+});
+
+describe('isExtensionMd', () => {
+  const path = require('path');
+  test('should return true for a .md file', () => {
+    const filePath = path.join(__dirname, 'example.md');
+    expect(isExtensionMd(filePath)).toBe(true);
+  });
+
+  test('should return false for a non-.md file', () => {
+    const filePath = path.join(__dirname, 'example.txt');
+    expect(isExtensionMd(filePath)).toBe(false);
+  });
+});
+
+//  test for getLinkstatus function 
+
+// Mock de la respuesta exitosa de axios
+const mockAxiosResponseOk = Promise.resolve({
+  status: 200
+});
+
+// Mock de la respuesta fallida de axios
+const mockAxiosResponseFail = Promise.reject({
+  response: {
+    status: 500
+  }
+});
+
+describe('getLinkStatus', () => {
+  it('debe retornar el estado de la URL si la petición es exitosa', () => {
+    const urls = [
+      { href: 'https://www.google.com', text: 'Google' },
+      { href: 'https://www.wikipedia.org', text: 'Wikipedia' }
+    ];
+
+    return getLinkStatus(urls)
+      .then((results) => {
+        expect(results).toEqual([
+          { href: 'https://www.google.com', text: 'Google', status: 200, message: 'ok' },
+          { href: 'https://www.wikipedia.org', text: 'Wikipedia', status: 200, message: 'ok' }
+        ]);
+      });
+  });
+
+  it('debe retornar el estado de la URL y mensaje fail si la petición falla', () => {
+    const urls = [
+      { href: 'https://www.google.com', text: 'Google' },
+      { href: 'https://www.invalid-url.com', text: 'Invalid' }
+    ];
+
+    return getLinkStatus(urls)
+      .then((results) => {
+        expect(results).toEqual([
+          { href: 'https://www.google.com', text: 'Google', status: 200, message: 'ok' },
+          { href: 'https://www.invalid-url.com', text: 'Invalid', status: 500, message: 'fail' }
+        ]);
+      });
+  });
+
+  it('debe manejar errores en las URLs', (done) => {
+    const urls = [
+      { href: 'https://www.google.com', text: 'Google' },
+      { href: 'invalid-url', text: 'Invalid' },
+    ];
+  
+    getLinkStatus(urls)
+      .then((results) => {
+        expect(results).toEqual([
+          { href: 'https://www.google.com', text: 'Google', status: 200, message: 'ok' },
+          { href: 'invalid-url', text: 'Invalid', status: 500, message: 'fail' },
+        ]);
+        done();
+      })
+      .catch((error) => {
+        done(error);
+      });
+  });
+  
 });

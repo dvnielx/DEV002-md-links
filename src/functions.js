@@ -46,7 +46,7 @@ const getLinks = (route) => new Promise((resolve, reject) => {
 const getLinkStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
   // utiliza la librería Axios para hacer una petición HTTP a cada una de las URLs que se le pasan como argumento
   // axios.get devuelve una promesa que resuelve a un objeto con información de la respuesta HTTP, incluyendo el status code
-  .then((respuesta) => ({ ...link, status: respuesta.status, message: 'ok' })) // si es exitosa devuelve un objeto con estas propiedades
+  .then((respuesta) => ({link, status: respuesta.status, message: 'ok' })) // si es exitosa devuelve un objeto con estas propiedades
   // console.log(respuesta);
 
   .catch((error) => {
@@ -59,7 +59,7 @@ const getLinkStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.hr
       errorStatus = 400;
     }
     // console.log('errorStatus', errorStatus);
-    return { ...link, status: errorStatus, message: 'fail' };
+    return {link, status: errorStatus, message: 'fail' };
   })));
 
 // Reads the file. This promise executes in cli.js
@@ -67,9 +67,9 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   if (!isPathValid(route)) {
     reject(new Error('Path is invalid'));
   }
-  fs.readFile(route, 'utf-8', (error, data) => {
+  fs.readFile(route, 'utf-8', (error, data) => { // codificación para leer el archivo como texto // callbacl
     if (error) {
-      reject(error);
+      reject(error); // el cb comprueba si hay algún error durante la lectura del archivo. 
     } else {
       resolve(data);
     }
@@ -88,8 +88,8 @@ const uniqueLinks = (array) => {
 };
 
 // Esta función recibe el mismo array de objetos de la función anterior y filtra aquellos links que tienen un status de 'Fail' o que estén fuera del rango de 199 a 400. Retorna la cantidad de links rotos encontrados.
-const brokenLinks = (array) => {
-  const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199);
+const brokenLinks = (array) => { // los códigos de estado HTTP entre 200 y 399 indican que una solicitud HTTP fue procesada correctamente y se recibió una respuesta satisfactoria del servidor
+  const broken = array.filter((link) => link.status === 'Fail' || link.status >= 400 || link.status <= 199);
   return `${broken.length}`;
 };
 
