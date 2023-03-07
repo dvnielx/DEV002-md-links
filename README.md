@@ -44,10 +44,10 @@ En la terminal escribe el siguiente comando:
 
 ## v. Consideraciones generales
 
-* La librería y el script ejecutable (herramienta de línea de comando - CLI) estan implementados en JavaScript para ser ejecutados con Node.js.
+* La librería y el script ejecutable (herramienta de línea de comando - CLI) están implementados en JavaScript para ser ejecutados con Node.js.
 
 ## vi. Archivos del proyecto
-### Este proyecto consta de DOS partes
+### Este proyecto consta de dos partes
 
 ### 1) JavaScript API
 
@@ -163,7 +163,7 @@ Total: 3
 Unique: 3
 ```
 
-También podemos combinar `--stats` y `--validate` para obtener estadísticas que
+También podemos combinar `--stats` y `--validate` (sin importar el orden) para obtener estadísticas que
 necesiten de los resultados de la validación.
 
 ```sh
