@@ -27,12 +27,12 @@ const getLinks = (route) => new Promise((resolve, reject) => {
   const links = []; // it returns an array with the info the user wants to receive
   readFiles(route)
     .then((data) => {
-      const urlLinks = /\[(.+?)\]\((https?:\/\/[^\s]+)\)/g;
+      const urlLinks = /\[(.+?)\]\((https?:\/\/[^\s]+)\)/g; // busca y extrae los enlaces de hipertexto en un texto en formato md.
       let match = urlLinks.exec(data);
       while (match !== null) { // when a link is found, an object with these properties will be created
         links.push({
-          href: match[2],
-          text: match[1],
+          href: match[2], // ruta a analizar o command line arguments adicionales 
+          text: match[1], // ruta del archivo js que se está ejecutando
           file: route,
         });
         match = urlLinks.exec(data);  // objects found will be added to an array 
@@ -41,26 +41,6 @@ const getLinks = (route) => new Promise((resolve, reject) => {
     })
     .catch((error) => reject(error));
 });
-
-
-const getLinkStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
-  // utiliza la librería Axios para hacer una petición HTTP a cada una de las URLs que se le pasan como argumento
-  // axios.get devuelve una promesa que resuelve a un objeto con información de la respuesta HTTP, incluyendo el status code
-  .then((respuesta) => ({link, status: respuesta.status, message: 'ok' })) // si es exitosa devuelve un objeto con estas propiedades
-  // console.log(respuesta);
-
-  .catch((error) => {
-    let errorStatus;
-    if (error.response) {
-      errorStatus = error.response.status;
-    } else if (error.request) {
-      errorStatus = 500;
-    } else {
-      errorStatus = 400;
-    }
-    // console.log('errorStatus', errorStatus);
-    return {link, status: errorStatus, message: 'fail' };
-  })));
 
 // Reads the file. This promise executes in cli.js
 const readFiles = (route) => new Promise((resolve, reject) => {
@@ -76,6 +56,26 @@ const readFiles = (route) => new Promise((resolve, reject) => {
   });
 });
 
+const getLinkStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
+  // utiliza la librería Axios para hacer una petición HTTP a cada una de las URLs que se le pasan como argumento
+  // axios.get devuelve una promesa que resuelve a un objeto con información de la respuesta HTTP, incluyendo el status code
+
+  .then((respuesta) => ({ ...link, status: respuesta.status, message: 'ok' })) // si es exitosa devuelve un objeto con estas propiedades
+
+
+  .catch((error) => {
+    let errorStatus;
+    if (error.response) {
+      errorStatus = error.response.status;
+    } else if (error.request) {
+      errorStatus = 500;
+    } else {
+      errorStatus = 400;
+    }
+    // console.log('errorStatus', errorStatus);
+    return {...link, status: errorStatus, message: 'fail' };
+  })));
+
 // *Functions to obtain "unique" and "broken" links*
 
 // Esta función recibe un array de objetos que representan los links encontrados en los archivos markdown
@@ -83,13 +83,13 @@ const linksStats = (array) => `${array.length}`;
 
 // Esta función recibe el mismo array de objetos de la función anterior y utiliza un Set para eliminar los links duplicados. Retorna la cantidad de links únicos encontrados.
 const uniqueLinks = (array) => {
-  const unique = new Set(array.map((link) => link.href));
+  const unique = new Set(array.map((link) => link.href)); // crea un conjunto (Set) de valores únicos obtenidos al mapear y extraer la propiedad href de los objetos en el array.
   return `${unique.size}`;
 };
 
 // Esta función recibe el mismo array de objetos de la función anterior y filtra aquellos links que tienen un status de 'Fail' o que estén fuera del rango de 199 a 400. Retorna la cantidad de links rotos encontrados.
 const brokenLinks = (array) => { // los códigos de estado HTTP entre 200 y 399 indican que una solicitud HTTP fue procesada correctamente y se recibió una respuesta satisfactoria del servidor
-  const broken = array.filter((link) => link.status === 'Fail' || link.status >= 400 || link.status <= 199);
+  const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199);
   return `${broken.length}`;
 };
 

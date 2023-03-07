@@ -26,10 +26,11 @@ const mdLinks = (path, options) => {
         reject(new Error('Path does not have links.')); // Rechaza la promesa con un error indicando que no hay links en el archivo
         return; 
       }
-      if (options === { validate: false }) { // Si no pide validar, resuelve la promesa con el array de links obtenido
+      if (!options || options.validate === false) {
         resolve(arrayLinks);
         return; 
       }
+      
       getLinkStatus(arrayLinks).then((response) => { // Si las opciones no son { validate: false }, invoca la función getLinkStatus con el array de links y devuelve una promesa
         resolve(response); // Resuelve la promesa con la respuesta obtenida
       });

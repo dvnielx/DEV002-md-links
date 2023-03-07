@@ -27,13 +27,16 @@ if (
          Stats & links validation`
       );
       console.log(
-        `\n${'Total links:'} ${linksStats(arrayLinks)}`,
+        `\n
+        ${'Total links:'} ${linksStats(arrayLinks)}`,
       );
       console.log(
-        `\n${'Unique links:'} ${uniqueLinks(arrayLinks)}`,
+        `\n
+        ${'Unique links:'} ${uniqueLinks(arrayLinks)}`,
       );
       console.log(
-        `\n${'Broken links:'} ${brokenLinks(arrayLinks)}\n`,
+        `\n
+        ${'Broken links:'} ${brokenLinks(arrayLinks)}\n`,
       );
     })
     .catch((error) => {
@@ -48,12 +51,12 @@ if (
       );
       arrayLinks.forEach((link) => {
         console.log(`
-      ${'href    :'} ${link.href} 
-      ${'message :'} ${link.message} 
-      ${'status  :'} ${link.status} 
-      ${'text    :'} ${link.text}
-        `);
+        ${'href    :'} ${link.href} 
+        ${'message :'} ${link.message} 
+        ${'status  :'} ${link.status} 
+        ${'text    :'} ${link.text}`);
       });
+      
     })
     .catch((error) => {
       console.log(error);
