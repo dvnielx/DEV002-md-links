@@ -24,7 +24,7 @@ if (
     .then((arrayLinks) => {
       console.log(
         `\n                                      
-         Stats & links validation`
+         Stats & links validation `
       );
       console.log(
         `\n

@@ -59,8 +59,7 @@ const readFiles = (route) => new Promise((resolve, reject) => {
 const getLinkStatus = (urls) => Promise.all(urls.map((link) => axios.get(link.href)
   // utiliza la librería Axios para hacer una petición HTTP a cada una de las URLs que se le pasan como argumento
   // axios.get devuelve una promesa que resuelve a un objeto con información de la respuesta HTTP, incluyendo el status code
-
-  .then((respuesta) => ({ ...link, status: respuesta.status, message: 'ok' })) // si es exitosa devuelve un objeto con estas propiedades
+  .then((respuesta) => ({ ...link, status: respuesta.status, message: 'ok' })) // si es exitosa, con el spread operator, crea una nueva version del objeto con estas propiedades
 
 
   .catch((error) => {
@@ -89,7 +88,7 @@ const uniqueLinks = (array) => {
 
 // Esta función recibe el mismo array de objetos de la función anterior y filtra aquellos links que tienen un status de 'Fail' o que estén fuera del rango de 199 a 400. Retorna la cantidad de links rotos encontrados.
 const brokenLinks = (array) => { // los códigos de estado HTTP entre 200 y 399 indican que una solicitud HTTP fue procesada correctamente y se recibió una respuesta satisfactoria del servidor
-  const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199);
+  const broken = array.filter((link) => link.status === 'Fail' || link.status > 400 || link.status < 199); // erores de servidores y clientes
   return `${broken.length}`;
 };
 

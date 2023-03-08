@@ -16,3 +16,10 @@ profundizar y/o ejercitar más sobre los objetivos de aprendizaje del proyecto.
 * Integración continua con Travis o Circle CI.
 
 ***
+
+ * [Array - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/)
+
+  * [Array - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/)
+ 
+  * [Array - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_O/)
+ 
